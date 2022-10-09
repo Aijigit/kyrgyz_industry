@@ -11,10 +11,10 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
-          <h1 data-aos="fade-up">Grow your business with Vesperr</h1>
-          <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with Bootstrap</h2>
+          <h1 data-aos="fade-up">ОАО «Кыргызиндустрия» </h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">создано постановлением Кабинета Министров Кыргызской Республики за №341 от 24 декабря 2021 года со 100% участием государства в его уставном капитале, который составляет 1 млрд. сомов.</h2>
           <div data-aos="fade-up" data-aos-delay="800">
-            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+            <a href="#about" class="btn-get-started scrollto">Наши Проекты</a>
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
@@ -67,7 +67,7 @@
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-          <h2>About Us</h2>
+          <h2>О НАС</h2>
         </div>
 
         <div class="row content">
@@ -88,7 +88,7 @@
               velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
               culpa qui officia deserunt mollit anim id est laborum.
             </p>
-            <a href="#" class="btn-learn-more">Learn More</a>
+            <a href="#" class="btn-learn-more">Узнать Больше</a>
           </div>
         </div>
 
@@ -111,7 +111,7 @@
                   <div class="count-box">
                     <i class="bi bi-emoji-smile"></i>
                     <span data-purecounter-start="0" data-purecounter-end="65" data-purecounter-duration="1" class="purecounter"></span>
-                    <p><strong>Happy Clients</strong> consequuntur voluptas nostrum aliquid ipsam architecto ut.</p>
+                    <p><strong>Наши Партнёры</strong> consequuntur voluptas nostrum aliquid ipsam architecto ut.</p>
                   </div>
                 </div>
 
@@ -151,7 +151,7 @@
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-          <h2>Services</h2>
+          <h2>Конкурсы</h2>
           <p>Magnam dolores commodi suscipit eius consequatur ex aliquid fug</p>
         </div>
 
@@ -253,37 +253,37 @@
           <div class="col-lg-3 col-md-4">
             <div class="icon-box">
               <i class="ri-store-line" style="color: #ffbb2c;"></i>
-              <h3><a href="">Lorem Ipsum</a></h3>
+              <h3><a href="">Автомобильные дороги</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
             <div class="icon-box">
               <i class="ri-bar-chart-box-line" style="color: #5578ff;"></i>
-              <h3><a href="">Dolor Sitema</a></h3>
+              <h3><a href="">Индустриальное развитие</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
             <div class="icon-box">
               <i class="ri-calendar-todo-line" style="color: #e80368;"></i>
-              <h3><a href="">Sed perspiciatis</a></h3>
+              <h3><a href="">Транспорт</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
             <div class="icon-box">
               <i class="ri-paint-brush-line" style="color: #e361ff;"></i>
-              <h3><a href="">Magni Dolores</a></h3>
+              <h3><a href="">Гражданская авиация</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box">
               <i class="ri-database-2-line" style="color: #47aeff;"></i>
-              <h3><a href="">Nemo Enim</a></h3>
+              <h3><a href="">Строительство</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
             <div class="icon-box">
               <i class="ri-gradienter-line" style="color: #ffa76e;"></i>
-              <h3><a href="">Eiusmod Tempor</a></h3>
+              <h3><a href="">Недропользование</a></h3>
             </div>
           </div>
           <div class="col-lg-3 col-md-4 mt-4">
@@ -443,6 +443,7 @@
 
         <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="400">
 
+       
           <div class="col-lg-4 col-md-6 portfolio-item filter-app">
             <div class="portfolio-wrap">
               <img src="{% static 'client/img/portfolio/portfolio-1.jpg' %}" class="img-fluid" alt="">
@@ -450,12 +451,13 @@
                 <h4>App 1</h4>
                 <p>App</p>
                 <div class="portfolio-links">
-                  <a href="{% static 'client/img/portfolio/portfolio-1.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                  <a href="{% static 'client/img/portfolio/portfolio-1.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"><i class='bx bx-collapse-alt'></i></a>
+                  <a href="{% url 'detail' %}" title="More Details"><i class='bx bx-right-arrow-alt'></i></a>
                 </div>
               </div>
             </div>
           </div>
+
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-web">
             <div class="portfolio-wrap">
@@ -464,7 +466,7 @@
                 <h4>Web 3</h4>
                 <p>Web</p>
                 <div class="portfolio-links">
-                  <a href="{% static 'client/img/portfolio/portfolio-2.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="{% static 'client/img/portfolio/portfolio-2.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"><i class='bx bx-collapse-alt'></i></a>
                   <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
@@ -493,7 +495,7 @@
                 <p>Card</p>
                 <div class="portfolio-links">
                   <a href="{% static 'client/img/portfolio/portfolio-4.jpg' %}" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"><i class="bx bx-plus"></i></a>
-                  <a href="portfolio-details.html" title="More Details"><i class="bx bx-link"></i></a>
+                  <a href="portfolio-details.html" title="More Details"><i class='bx bx-right-arrow-alt'></i></a>
                 </div>
               </div>
             </div>
@@ -667,7 +669,7 @@
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
-          <h2>Frequently Asked Questions</h2>
+          <h2>Наши Цели и Задачи</h2>
         </div>
 
         <div class="row faq-item d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
