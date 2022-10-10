@@ -3,7 +3,6 @@ from tabnanny import verbose
 from tokenize import Name
 from django.db import models
 
-
 # Языки
 class Language(models.Model):
     Name=models.CharField(max_length=10,verbose_name="Язык")
