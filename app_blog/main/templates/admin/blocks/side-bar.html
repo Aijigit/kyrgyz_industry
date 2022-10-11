@@ -9,8 +9,8 @@
                     <div class="dot-indicator bg-success"></div>
                   </div>
                   <div class="text-wrapper">
-                    <p class="profile-name">Allen Moreno</p>
-                    <p class="designation">Administrator</p>
+                    <p class="profile-name">{{ user }}</p>
+                    <p class="designation">Администратор</p>
                   </div>
                   <div class="icon-container">
                     <i class="icon-bubbles"></i>
@@ -19,30 +19,30 @@
                 </a>
               </li>
               <li class="nav-item nav-category">
-                <span class="nav-link">Dashboard</span>
+                <span class="nav-link">Панель</span>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                  <span class="menu-title">Dashboard</span>
+                <a class="nav-link" href="{% url 'admin_panel' %}">
+                  <span class="menu-title">Панель-Управление</span>
                   <i class="icon-screen-desktop menu-icon"></i>
                 </a>
               </li>
-              <li class="nav-item nav-category"><span class="nav-link">UI Elements</span></li>
+              <li class="nav-item nav-category"><span class="nav-link">Управление контента</span></li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-                  <span class="menu-title">Basic UI Elements</span>
+                  <span class="menu-title">Новости</span>
                   <i class="icon-layers menu-icon"></i>
                 </a>
                 <div class="collapse" id="ui-basic">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'news_all' %}">Список новостей</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Добавить новость</a></li>
                   </ul>
                 </div>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="pages/icons/simple-line-icons.html">
-                  <span class="menu-title">Icons</span>
+                  <span class="menu-title">Проекты</span>
                   <i class="icon-globe menu-icon"></i>
                 </a>
               </li>
@@ -54,14 +54,8 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="pages/charts/chartist.html">
-                  <span class="menu-title">Charts</span>
+                  <span class="menu-title">Конкурсы</span>
                   <i class="icon-chart menu-icon"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="pages/tables/basic-table.html">
-                  <span class="menu-title">Tables</span>
-                  <i class="icon-grid menu-icon"></i>
                 </a>
               </li>
               <li class="nav-item nav-category"><span class="nav-link">Sample Pages</span></li>

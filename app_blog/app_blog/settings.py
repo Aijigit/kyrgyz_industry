@@ -76,10 +76,18 @@ WSGI_APPLICATION = 'app_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'mssql',
+        'NAME': 'KG_INDUSTRY',
+        'USER': 'ajo',
+        'PASSWORD': '1330',
+        'HOST': '127.0.0.1',
+        'PORT': '1433',
+        'OPTIONS': {
+            'driver': 'SQL Server Native Client 11.0',
+        },
+    },
 }
+
 
 
 # Password validation

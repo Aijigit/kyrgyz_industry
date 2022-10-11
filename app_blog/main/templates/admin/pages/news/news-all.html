@@ -1,0 +1,72 @@
+{% extends 'admin/admin_base.html' %}   
+{% load static %}
+  {% block content %}
+      <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">Таблица Новости</h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Новости</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Список новостей</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Список всех новостей</h4>
+                    <table class="table table-hover">
+                      {% if news_list %}
+                      <thead>
+                        <tr>
+                          <th>Название</th>
+                          <th>Краткое описание</th>
+                          <th>Дата публикации</th>
+                          <th>Язык</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for news in news_list %}
+                        <tr>
+                          <td>{{news.Title }}</td>
+                          <td>{{news.Short_Description}}</td>
+                          <td class="text-danger">{{news.Date_added}}  <i class="icon-arrow-down-circle"></i></td>
+                          <td><label class="badge badge-danger">{{news.Language}}</label></td>
+                        </tr>
+                        {% endfor %}
+                        
+                      </tbody>
+                      {% else %}
+                      <div class="row purchace-popup">
+                        <div class="col-12 stretch-card grid-margin">
+                          <div class="card card-secondary">
+                            <span class="card-body d-lg-flex align-items-center">
+                              <p class="mb-lg-0">Нет записей</p>
+                              <a href="add/" class="btn btn-success purchase-button btn-sm my-1 my-sm-0 ml-auto">Добавить новую запись</a>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      {% endif %}
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+          <!-- content-wrapper ends -->
+{% endblock content %}
+          {% block custom_js%}
+            <!-- plugins:js -->
+            <script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
+            <!-- endinject -->
+            <!-- Plugin js for this page -->
+            <!-- End plugin js for this page -->
+            <!-- inject:js -->
+            <script src="{% static 'admin-panel/off-canvas.js' %}"></script>
+            <script src="{% static 'admin-panel/misc.js' %}"></script>
+            <!-- endinject -->
+            <!-- Custom js for this page -->
+            <!-- End custom js for this page -->
+          {% endblock custom_js %}

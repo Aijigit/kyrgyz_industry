@@ -1,6 +1,13 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.contrib.auth import authenticate, login
+from django.views.generic import TemplateView, ListView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from django.views.generic.detail import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse, reverse_lazy
+from django.views import View
+from django.http import HttpResponseRedirect, HttpResponse
+from .models import *
 
 
 def index(request):
@@ -12,10 +19,33 @@ def detail(request):
     template_name = "client/pages/blog_detail.html"
     return render(request, template_name, {})
 
+
+# Admin-Panel Views
 def admin_index_page(request):
     template_name = "admin/admin.html"
     return render(request, template_name, {})
 
 def admin_form_page(request):
     template_name = "admin/pages/forms/basic_elements.html"
-    return render(request, template_name, {})
+
+    user_name = None
+    if request.user.is_authenticated:
+        user_name = request.user.username
+    context = {
+        "user" : user_name
+    }
+    return render(request, template_name, context)
+
+
+class NewsView(View):
+    model = News
+    fields = '__all__'
+    success_url = reverse_lazy('news_all')
+
+
+class NewsListView(LoginRequiredMixin, NewsView, ListView):
+    login_url = 'login_page'
+    template_name = 'admin/pages/news/news-all.html'
+
+    # def get(self, request, *args, **kwargs):
+    #     context = {"news_active" : "active"}
