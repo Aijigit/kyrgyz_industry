@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block admin_title %}Админ-Панель{% endblock admin_title %}</title>
+    <link rel="shortcut icon" href="./images/favicon.png" />
+    {% include 'admin/blocks/links.html' %}
+    {% block plugin_css %}{% endblock plugin_css %}
+  </head>
+  <body>
+    
+    <div class="container-scroller">
+      
+      {% include 'admin/blocks/header.html' %}
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        {% include 'admin/blocks/side-bar.html' %}
+        <!-- partial -->
+        <div class="main-panel">
+           {% block content %}{% endblock content %}
+
+           {% include 'admin/blocks/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+        
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    {% comment %} {% include 'admin/blocks/scripts.html' %} {% endcomment %}
+
+    {% block custom_js %}{% endblock custom_js %}
+  </body>
+</html>
