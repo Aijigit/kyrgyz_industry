@@ -13,6 +13,8 @@ class Language(models.Model):
     class Meta:
         db_table="language" 
 
+    def __str__(self):
+        return self.Name
 # Категория проектов
 class ProjectCategory(models.Model):
     Name=models.CharField(max_length=70,verbose_name="Название категории")

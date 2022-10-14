@@ -32,5 +32,8 @@
     {% comment %} {% include 'admin/blocks/scripts.html' %} {% endcomment %}
 
     {% block custom_js %}{% endblock custom_js %}
+    <script type="text/javascript">
+      {% if is_active %} $("li#{{is_active}}").addClass("active") {% endif %}
+    </script>
   </body>
 </html>

@@ -31,8 +31,12 @@
                         <tr>
                           <td>{{news.Title }}</td>
                           <td>{{news.Short_Description}}</td>
-                          <td class="text-danger">{{news.Date_added}}  <i class="icon-arrow-down-circle"></i></td>
+                          <td class="text-danger">{{news.Date_added}}</td>
                           <td><label class="badge badge-danger">{{news.Language}}</label></td>
+                          <td class="edit-delete-icons">
+                            <a href="#"><i class="icon-pencil"></i></a> |
+                            <a href="#" class="text-danger"><i class="icon-trash"></i></a>
+                          </td>
                         </tr>
                         {% endfor %}
                         

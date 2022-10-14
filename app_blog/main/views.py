@@ -23,7 +23,10 @@ def detail(request):
 # Admin-Panel Views
 def admin_index_page(request):
     template_name = "admin/admin.html"
-    return render(request, template_name, {})
+    context = {
+        "is_active" : "main-panel"
+    }
+    return render(request, template_name, context)
 
 def admin_form_page(request):
     template_name = "admin/pages/forms/basic_elements.html"
@@ -37,15 +40,23 @@ def admin_form_page(request):
     return render(request, template_name, context)
 
 
+def login_page(request):
+    template_name = "admin/pages/forms/login.html"
+
+    return render(request, template_name, {})
+
 class NewsView(View):
     model = News
     fields = '__all__'
     success_url = reverse_lazy('news_all')
-
+    extra_context = {
+        "is_active" : "news-panel",
+        "expand" : "show"
+        }
 
 class NewsListView(LoginRequiredMixin, NewsView, ListView):
     login_url = 'login_page'
     template_name = 'admin/pages/news/news-all.html'
+    
 
-    # def get(self, request, *args, **kwargs):
-    #     context = {"news_active" : "active"}
+  

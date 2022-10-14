@@ -1862,6 +1862,12 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important; }
 
+/* Custom style */
+
+.edit-delete-icons a{
+  font-size: 20px;
+}
+/* Custom style end */
 hr {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
