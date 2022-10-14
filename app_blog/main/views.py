@@ -1,9 +1,11 @@
-from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render,redirect
+from django.contrib.auth import authenticate, login, logout 
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse
@@ -19,8 +21,29 @@ def detail(request):
     template_name = "client/pages/blog_detail.html"
     return render(request, template_name, {})
 
+@csrf_exempt
+def login_page(request):
+    template_name = "admin/pages/forms/login.html"
+    
+    return render(request, template_name, {})
 
+@csrf_exempt
+def authorization(request):
+    success_url = reverse_lazy('admin_panel')
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return redirect(success_url)
+    else:
+        return redirect('login_page')
+
+def logout_page(request):
+    logout(request)
+    return redirect('login_page')
 # Admin-Panel Views
+@login_required
 def admin_index_page(request):
     template_name = "admin/admin.html"
     context = {
@@ -28,6 +51,7 @@ def admin_index_page(request):
     }
     return render(request, template_name, context)
 
+@login_required
 def admin_form_page(request):
     template_name = "admin/pages/forms/basic_elements.html"
 
@@ -40,10 +64,7 @@ def admin_form_page(request):
     return render(request, template_name, context)
 
 
-def login_page(request):
-    template_name = "admin/pages/forms/login.html"
 
-    return render(request, template_name, {})
 
 class NewsView(View):
     model = News
