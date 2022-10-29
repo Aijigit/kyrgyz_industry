@@ -51,6 +51,9 @@ class GalleryNews(models.Model):
         db_table="galleryNews" 
 
 # Фото 
+
+
+
 class PhotosProject(models.Model):
     URL=models.FileField(verbose_name="Путь картинки")
     Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
