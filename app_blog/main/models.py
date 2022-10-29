@@ -60,13 +60,13 @@ class PhotosProject(models.Model):
 class PhotosContests(models.Model):
     URL=models.FileField(verbose_name="Путь картинки")
     Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
-    Gallery=models.ForeignKey("galleryProject",on_delete=models.RESTRICT,verbose_name="Галерея")
+    Gallery=models.ForeignKey("galleryContests",on_delete=models.RESTRICT,verbose_name="Галерея")
 
 
 class PhotosNews(models.Model):
     URL=models.FileField(verbose_name="Путь картинки")
     Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
-    Gallery=models.ForeignKey("galleryProject",on_delete=models.RESTRICT,verbose_name="Галерея")
+    Gallery=models.ForeignKey("galleryNews",on_delete=models.RESTRICT,verbose_name="Галерея")
 
 class Contest_Status_Choice(models.TextChoices):
     ON_PROCCESS = "В процессе", "В процессе"
