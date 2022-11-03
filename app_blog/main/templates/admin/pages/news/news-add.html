@@ -5,34 +5,21 @@
 
 <div class="content-wrapper">
     <div class="page-header">
-      <h3 class="page-title">Изменить новости</h3>
+      <h3 class="page-title">Добавление новых новостей</h3>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Новости</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Обновление</li>
+          <li class="breadcrumb-item active" aria-current="page">Добавить новую запись</li>
         </ol>
       </nav>
     </div>
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Изменить Новости</h4>
-            <p class="card-description"> Форма изменение новостей </p>
+            <h4 class="card-title">Добавить Новости</h4>
+            <p class="card-description"> Форма добавление новостей </p>
             <form class="forms-sample" method="POST">
             {% csrf_token %}
-
-            {% if messages %}
-            <div class="form-group">
-            <div class="col-12">
-                {% for message in messages %}
-                    <div class="text-center alert alert-{{ message.tags }}">
-                        {{ message|safe }}
-                    </div>
-                 {% endfor %}
-            </div>
-            </div>
-            {% endif %}
-
             <div class="form-group">
                 <label for="{{ form.Title.id_for_label }}">Тема</label>
                 {{ form.Title }}
@@ -66,8 +53,8 @@
                 {{ form.Gallery.errors }}
             </div>
             {% url 'news_all' as news_all %}
-            <button type="submit" class="btn btn-primary mr-2">Обновить</button>
-            <button type="submit" class="btn btn-light" onlick="window.location='{{news_all}}'; return false;">Отменить</button>
+            <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
+            <button type="button" class="btn btn-light" onlick="window.location='{{news_all}}'; return false;">Отменить</button>
             </form>
         </div>
         </div>

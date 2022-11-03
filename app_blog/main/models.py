@@ -6,15 +6,15 @@ from tokenize import Name
 from xmlrpc.client import DateTime
 from django.db import models
 from django.utils.timezone import now
+
 # Языки
-class Language(models.Model):
-    Name=models.CharField(max_length=10,verbose_name="Язык")
-
-    class Meta:
-        db_table="language" 
-
-    def __str__(self):
-        return self.Name
+class LanguageChoice(models.TextChoices):
+    RU = "Русский", "Русский"
+    KG = "Кыргызча", "Кыргызча"
+    EN = "English", "English"
+    CH = "中国人", "中国人"
+    
+  
 # Категория проектов
 class ProjectCategory(models.Model):
     Name=models.CharField(max_length=70,verbose_name="Название категории")
@@ -49,23 +49,24 @@ class GalleryNews(models.Model):
 
     class Meta:
         db_table="galleryNews" 
-
+    def __str__(self) -> str:
+        return self.Name   
 # Фото 
 class PhotosProject(models.Model):
-    URL=models.FileField(verbose_name="Путь картинки")
-    Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
+    URL=models.FileField(verbose_name="Путь к картинке")
+    Caption=models.CharField(max_length=70,verbose_name="Название картинки", default='')
     Gallery=models.ForeignKey("galleryProject",on_delete=models.RESTRICT,verbose_name="Галерея")
 
 
 class PhotosContests(models.Model):
     URL=models.FileField(verbose_name="Путь картинки")
-    Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
+    Caption=models.CharField(max_length=70,verbose_name="Название картинки", default='')
     Gallery=models.ForeignKey("galleryProject",on_delete=models.RESTRICT,verbose_name="Галерея")
 
 
 class PhotosNews(models.Model):
     URL=models.FileField(verbose_name="Путь картинки")
-    Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
+    Caption=models.CharField(max_length=70,verbose_name="Название картинки", default='')
     Gallery=models.ForeignKey("galleryProject",on_delete=models.RESTRICT,verbose_name="Галерея")
 
 class Contest_Status_Choice(models.TextChoices):
@@ -83,11 +84,12 @@ class Projects(models.Model):
     Description=models.TextField(verbose_name="Описание")
     Date_added=models.DateTimeField(verbose_name="Дата публикации", default=now)
     # Язык проекта
-    Language=models.ForeignKey(
-        "language",
-        on_delete=models.RESTRICT,
-        verbose_name="Выберите Язык"
-        )
+    Language=models.CharField(
+                               max_length = 10, 
+                               choices = LanguageChoice.choices,
+                               default = LanguageChoice.RU,
+                               verbose_name = "Язык"
+                             )
     Gallery=models.ForeignKey(
         "galleryProject",
         on_delete=models.RESTRICT,
@@ -96,13 +98,13 @@ class Projects(models.Model):
     Category=models.ForeignKey(
         "projectCategory",
         on_delete=models.RESTRICT,
-        verbose_name="Выберите Категория"
+        verbose_name="Категория"
         )
     Status = models.CharField(
         max_length = 20,
         choices = Project_Status_Choice.choices,
         default = Project_Status_Choice.ON_PROCCESS,
-        verbose_name = "Выберите Статус"
+        verbose_name = "Статус"
     )
 
 # Конкурсы
@@ -113,23 +115,33 @@ class Contests(models.Model):
     Description=models.TextField(verbose_name="Описание")
     Document = models.FileField(verbose_name="Документ")
     Date_added=models.DateTimeField(verbose_name="Дата публикации", default=now)
-    Language=models.ForeignKey("language",on_delete=models.RESTRICT,verbose_name="Выберите Язык")
+    Language=models.CharField(
+                               max_length = 10, 
+                               choices = LanguageChoice.choices,
+                               default = LanguageChoice.RU,
+                               verbose_name = "Язык"
+                               )
     Gallery=models.ForeignKey("galleryContests",on_delete=models.RESTRICT,verbose_name="Выберите Галерую")
     Category=models.ForeignKey("contestsCategory",on_delete=models.RESTRICT,verbose_name="Выберите Категорию")
     Status = models.CharField(
         max_length = 20,
         choices = Contest_Status_Choice.choices,
         default = Contest_Status_Choice.ON_PROCCESS,
-        verbose_name = "Выберите Статус"
+        verbose_name = "Статус"
     )
 
 # Новости
 
 class News(models.Model):
     Title=models.CharField(max_length=70,verbose_name="Заголовок новости")
-    Short_Description = models.CharField(max_length=110,verbose_name="Краткое описание", default ='')
+    Short_Description = models.CharField(max_length=110,verbose_name="Краткое описание")
     Description=models.TextField(verbose_name="Описание")
     Date_added=models.DateTimeField(verbose_name="Дата публикации", default=now)
-    Language=models.ForeignKey("language",on_delete=models.RESTRICT,verbose_name="Язык")
+    Language= models.CharField(
+                               max_length = 10, 
+                               choices = LanguageChoice.choices,
+                               default = LanguageChoice.RU,
+                               verbose_name = "Язык"
+                               )
     Gallery=models.ForeignKey("galleryNews",on_delete=models.RESTRICT,verbose_name="Галерея")
 

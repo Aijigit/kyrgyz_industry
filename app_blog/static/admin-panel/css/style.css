@@ -1867,6 +1867,24 @@ body {
 .edit-delete-icons a{
   font-size: 20px;
 }
+
+/*--------------------------------------------------------------
+# Spinner Box
+--------------------------------------------------------------*/
+
+.spinner-box{
+  z-index: 10;
+}
+.not-visible{
+    display:none;
+}
+
+p.ticker-content{
+  margin-bottom: 0px;
+}
+ul.errorlist{
+  color: red;
+}
 /* Custom style end */
 hr {
   -webkit-box-sizing: content-box;
@@ -1943,9 +1961,7 @@ a {
   color: #007bff;
   text-decoration: none;
   background-color: transparent; }
-  a:hover {
-    color: #0056b3;
-    text-decoration: underline; }
+
 
 a:not([href]):not([class]) {
   color: inherit;

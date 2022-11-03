@@ -35,8 +35,8 @@
                 </a>
                 <div class="collapse{% if expand %}show{% endif %}" id="ui-basic">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link {% if expand %}active{% endif %}" href="{% url 'news_all' %}">Список новостей</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Добавить новость</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_all_news %}active{% endif %}" href="{% url 'news_all' %}">Список новостей</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_create_news %}active{% endif %}" href="{% url 'news_create' %}">Добавить новость</a></li>
                   </ul>
                 </div>
               </li>
@@ -47,7 +47,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'forms_page' %}">
+                <a class="nav-link" href="#">
                   <span class="menu-title">Form Elements</span>
                   <i class="icon-book-open menu-icon"></i>
                 </a>
@@ -76,7 +76,7 @@
               </li>
               <li class="nav-item pro-upgrade">
                 <span class="nav-link">
-                  <a class="btn btn-block px-0 btn-rounded btn-upgrade" href="https://www.bootstrapdash.com/product/stellar-admin-template/" target="_blank"> <i class="icon-badge mx-2"></i> Upgrade to Pro</a>
+                  <a class="btn btn-block px-0 btn-rounded btn-upgrade" href="{% url 'index' %}" target="_blank"> <i class="icon-badge mx-2"></i> Открыть Сайт</a>
                 </span>
               </li>
             </ul>
