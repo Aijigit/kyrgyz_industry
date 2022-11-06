@@ -2,10 +2,9 @@
       <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
-              <li class="nav-item nav-profile">
-                <a href="#" class="nav-link">
+              <li class="nav-item nav-profile user-select-none">
+                <a class="nav-link">
                   <div class="profile-image">
-                    <img class="img-xs rounded-circle" src="{% static 'admin-panel/images/faces/face8.jpg' %}" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                   </div>
                   <div class="text-wrapper">
@@ -13,8 +12,7 @@
                     <p class="designation">Администратор</p>
                   </div>
                   <div class="icon-container">
-                    <i class="icon-bubbles"></i>
-                    <div class="dot-indicator bg-danger"></div>
+                    <i class="icon-support"></i>
                   </div>
                 </a>
               </li>
@@ -28,10 +26,22 @@
                 </a>
               </li>
               <li class="nav-item nav-category"><span class="nav-link">Управление контента</span></li>
+              <li class="nav-item" id="gallery-panel">
+                <a class="nav-link" data-toggle="collapse" href="#gallery" aria-expanded="{% if expand_gallery %}true{% else %}false{% endif %}" aria-controls="gallery">
+                  <span class="menu-title">Галерея</span>
+                  <i class="icon-book-open menu-icon"></i>
+                </a>
+                <div class="collapse{% if expand_gallery %}show{% endif %}" id="gallery">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link {% if active_gallery_news %}active{% endif %}" href="{% url 'newsgallery_all' %}">Для Новости</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_create_gallerynews %}active{% endif %}" href="{% url 'newsgallery_create' %}">Для Проекта</a></li>
+                  </ul>
+                </div>
+              </li>
               <li class="nav-item" id="news-panel">
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="{% if expand %}true{% else %}false{% endif %}" aria-controls="ui-basic">
                   <span class="menu-title">Новости</span>
-                  <i class="icon-layers menu-icon"></i>
+                  <i class="icon-book-open menu-icon"></i>
                 </a>
                 <div class="collapse{% if expand %}show{% endif %}" id="ui-basic">
                   <ul class="nav flex-column sub-menu">
@@ -43,13 +53,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="pages/icons/simple-line-icons.html">
                   <span class="menu-title">Проекты</span>
-                  <i class="icon-globe menu-icon"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span class="menu-title">Form Elements</span>
-                  <i class="icon-book-open menu-icon"></i>
+                  <i class="icon-layers menu-icon"></i>
                 </a>
               </li>
               <li class="nav-item">
@@ -58,10 +62,10 @@
                   <i class="icon-chart menu-icon"></i>
                 </a>
               </li>
-              <li class="nav-item nav-category"><span class="nav-link">Sample Pages</span></li>
+              <li class="nav-item nav-category"><span class="nav-link">Руководство</span></li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                  <span class="menu-title">General Pages</span>
+                  <span class="menu-title">Персоналы</span>
                   <i class="icon-doc menu-icon"></i>
                 </a>
                 <div class="collapse" id="auth">
@@ -76,7 +80,7 @@
               </li>
               <li class="nav-item pro-upgrade">
                 <span class="nav-link">
-                  <a class="btn btn-block px-0 btn-rounded btn-upgrade" href="{% url 'index' %}" target="_blank"> <i class="icon-badge mx-2"></i> Открыть Сайт</a>
+                  <a class="btn btn-block px-0 btn-rounded btn-upgrade" href="{% url 'index' %} " target="_blank"> <i class="icon-badge mx-2"></i> Открыть Сайт</a>
                 </span>
               </li>
             </ul>

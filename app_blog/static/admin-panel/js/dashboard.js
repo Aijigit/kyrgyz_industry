@@ -8,7 +8,7 @@
     const spinnerBox = document.getElementById("spinner-box");
     $.ajax({
       type: 'GET',
-      url: '/admin-panel/admin-main/',
+      url: '/admin-panel/main/',
       success: function(response){
         setTimeout( () => {
           spinnerBox.classList.add("not-visible");

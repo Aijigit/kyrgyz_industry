@@ -9,8 +9,17 @@ urlpatterns = [
     path('accounts/logout/', views.logout_page, name = 'logout_page'),
     path('detail/', views.detail, name='detail'),
     path('admin-panel/main/', views.admin_index_page, name='admin_panel'),
+    # News View
     path('admin-panel/news/all/', views.NewsListView.as_view(), name='news_all'),
     path('admin-panel/news/create/', views.NewsCreateView.as_view(), name='news_create'),
+    path('admin-panel/news/detail/<int:pk>/', views.NewsDetailView.as_view(), name='news_detail'),
     path('admin-panel/news/update/<int:pk>/', views.NewsUpdateView.as_view(), name='news_update'),
-    path('admin-panel/news/delete/<int:pk>/', views.NewsDeleteView.as_view(), name='news_delete'),
+    path('admin-panel/news/delete/<int:id>/', views.news_delete, name='news_delete'),
+    
+    # News Gallery View
+    path('admin-panel/gallery/news/', views.NewsGalleryListView.as_view(), name='newsgallery_all'),
+    path('admin-panel/gallery/news/create/', views.NewsGalleryCreateView.as_view(), name='newsgallery_create'),
+    path('admin-panel/gallery/news/detail/<int:pk>/', views.NewsGalleryDeleteView.as_view(), name='newsgallery_detail'),
+    path('admin-panel/gallery/news/update/<int:pk>/', views.NewsGalleryUpdateView.as_view(), name='newsgallery_update'),
+    path('admin-panel/gallery/news/delete/<int:id>/', views.newsgallery_delete, name='newsgallery_delete'),
 ]

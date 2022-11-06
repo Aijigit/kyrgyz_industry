@@ -42,8 +42,33 @@ class NewsForm(ModelForm):
         if title == "" or short_description == "" or description == "" or gallery == "":
             raise forms.ValidationError('Это поле обязательное!')
         return title   
-    
-
+   
+# Форма для Галереи
+class NewsGalleryForm(ModelForm):
+    class Meta:
+        model = GalleryNews
+        fields = ["Name"]
+        widgets = {
+            'Name' : TextInput(
+                attrs= {"type" : "text", "class" : "form-control", "id" : "name", "placeholder" : "Название  галереи", "required" : True })
+        } 
+        
+# Форма для изображение новости
+class NewsImageForm(ModelForm):
+    class Meta:
+        model = PhotosNews
+        fields = ["URL", "Caption", "Gallery"]
+        
+        widgets = {
+            'URL' : forms.FileField(),
+            'Caption' : TextInput(
+                attrs = {"type" : "text", "class" : "form-control", "id" : "image-caption", "placeholder" : "Описание изображении", "size" : 110, 'required': False}
+            ),
+            'Gallery' : forms.Select(
+                attrs={"class": "form-control", 'required': True, "id" : "gallery"}
+            )
+        }
+        
 # Projects    
 class ProjectImageFrom(ModelForm):
     class Meta:
