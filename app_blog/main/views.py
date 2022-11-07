@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout 
 from django.views.generic import TemplateView, ListView
@@ -10,11 +11,53 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
-
-
+from django.core.mail import BadHeaderError, send_mail
+from django.core import mail
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.conf import settings
 def index(request):
+    # settings.EMAIL_HOST_USER='zenisbekovk04@gmail.com'
+    # settings.EMAIL_HOST_PASSWORD='zwhojtjglgpyguxw'
+    # send_mail(
+    #     'dsds',
+    #     'dssdsd',
+    #     'zenisbekovk04@gmail.com',
+    #     ['j.j.kegen@gmail.com'],
+    #     fail_silently=False,
+    # )
+    
     template_name = "client/index.html"
     return render(request, template_name, {})
+
+def send_message(request):
+    template_name = "/client/index.html"
+    sucs=True
+    if request.method == 'POST':
+        settings.EMAIL_HOST_USER=request.POST.get('email', '')
+        settings.EMAIL_HOST_PASSWORD='zwhojtjglgpyguxw'
+        Name = request.POST.get('name', '')
+        
+        message = request.POST.get('message', '')
+        from_email = request.POST.get('email', '')
+        subject = "Сообщение от пользователей" 
+        try:
+            body = {
+			    'Name: ': "От кого: "+ Name, 
+                'from_email': "Эл.адрес: " + from_email,
+			    'message': "Сообщение: " + message,
+		    }
+	    
+            messageAll = "\n".join(body.values())
+            send_mail(subject, messageAll, from_email, ['j.j.kegen@gmail.com'])
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
+        except:
+            messages.add_message(request, messages.ERROR, 'Неправильный эл.адрес')
+            sucs=False
+    if(sucs==True):
+        messages.add_message(request, messages.SUCCESS, 'Ваше сообщение отправлено!')
+    return redirect ('/')
 
 
 def detail(request):
@@ -80,4 +123,6 @@ class NewsListView(LoginRequiredMixin, NewsView, ListView):
     template_name = 'admin/pages/news/news-all.html'
     
 
-  
+def ProjectsGetAll(request):
+    projects = Projects.objects.all()
+    return render(request, 'client/index.html', {'project':projects})

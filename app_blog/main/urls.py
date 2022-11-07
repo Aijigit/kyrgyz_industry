@@ -9,4 +9,6 @@ urlpatterns = [
     path('admin-panel/admin-main/', views.admin_index_page, name='admin_panel'),
     path('admin-panel/add/', views.admin_form_page, name='forms_page'),
     path('admin-panel/news/all/', views.NewsListView.as_view(), name='news_all'),
+    path("send_message/", views.send_message),
 ]
+

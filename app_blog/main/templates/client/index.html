@@ -736,7 +736,8 @@
     </section><!-- End F.A.Q Section -->
 
     <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
+ 
+    <section id="contact" class="contact" method="post">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -779,14 +780,14 @@
 
             </div>
           </div>
-
           <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
-            <form method="post" role="form" class="php-email-form">
+            <form method="post" role="form" class="frm" action="send_message/">
+              {% csrf_token %}
               <div class="form-group">
                 <input type="text" name="name" class="form-control" id="name" placeholder="Имя" required>
               </div>
               <div class="form-group">
-                <input type="number" class="form-control" name="subject" id="subject" placeholder="Номер Телефона" required>
+                <input type="number" class="form-control" name="phone" id="subject" placeholder="Номер Телефона" required>
               </div>
               <div class="form-group">
                 <input type="email" class="form-control" name="email" id="email" placeholder="E-mail" required>
@@ -794,12 +795,26 @@
               <div class="form-group">
                 <textarea class="form-control" name="message" rows="5" placeholder="Сообщение ..." required></textarea>
               </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+              {% for message in messages %}
+              {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+              <div class="alert alert-success">
+                
+                {{ message }}
+                
               </div>
+              {% elif message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+              <div class="alert alert-danger">
+                
+                {{ message }}
+                
+              </div>
+              {% endif %}
+
+              {% endfor %}
+              
               <div class="text-center"><button type="submit">Отправить</button></div>
+              
+             
             </form>
           </div>
 

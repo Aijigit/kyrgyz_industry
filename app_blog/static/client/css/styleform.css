@@ -1,0 +1,29 @@
+.contact .frm .form-group {
+    margin-bottom: 20px;
+  }
+
+  .contact .php-email-form input,
+.contact .php-email-form textarea {
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 14px;
+  padding: 10px 15px;
+}
+
+.contact .frm input:focus,
+.contact .php-email-form textarea:focus {
+  border-color: #3498db;
+}
+
+.contact .frm button[type=submit] {
+  background: #3498db;
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+
+.contact .frm button[type=submit]:hover {
+  background: #2383c4;
+}
