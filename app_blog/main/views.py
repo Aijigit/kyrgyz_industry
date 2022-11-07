@@ -34,6 +34,7 @@ def send_message(request):
         from_email = request.POST.get('email', '')
         subject = "Сообщение от пользователей" 
         try:
+            
             body = {
 			    'Name: ': "От кого: "+ Name, 
                 'from_email': "Эл.адрес: " + from_email,
