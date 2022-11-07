@@ -17,25 +17,17 @@ from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.conf import settings
 def index(request):
-    # settings.EMAIL_HOST_USER='zenisbekovk04@gmail.com'
-    # settings.EMAIL_HOST_PASSWORD='zwhojtjglgpyguxw'
-    # send_mail(
-    #     'dsds',
-    #     'dssdsd',
-    #     'zenisbekovk04@gmail.com',
-    #     ['j.j.kegen@gmail.com'],
-    #     fail_silently=False,
-    # )
+   
     
     template_name = "client/index.html"
     return render(request, template_name, {})
 
 def send_message(request):
-    template_name = "/client/index.html"
+    
     sucs=True
     if request.method == 'POST':
         settings.EMAIL_HOST_USER=request.POST.get('email', '')
-        settings.EMAIL_HOST_PASSWORD='zwhojtjglgpyguxw'
+        settings.EMAIL_HOST_PASSWORD=''
         Name = request.POST.get('name', '')
         
         message = request.POST.get('message', '')
@@ -49,7 +41,7 @@ def send_message(request):
 		    }
 	    
             messageAll = "\n".join(body.values())
-            send_mail(subject, messageAll, from_email, ['j.j.kegen@gmail.com'])
+            send_mail(subject, messageAll, from_email, ['To'])
         except BadHeaderError:
             return HttpResponse('Invalid header found.')
         except:
