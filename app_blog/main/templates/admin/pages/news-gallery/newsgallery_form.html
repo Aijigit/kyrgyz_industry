@@ -2,57 +2,39 @@
 {% load static %}
 {% block content %}
 
+{% url "newsgallery_create"  as url_path %}
 <div class="content-wrapper">
     <div class="page-header">
-      <h3 class="page-title">Добавление новых новостей</h3>
+      <h3 class="page-title">{% if request.path == url_path %}Добавление{% else%}Изменение{% endif %}  Галереи</h3>
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Новости</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Добавить новую запись</li>
+          <li class="breadcrumb-item"><a href="#">Галерея</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{% if request.path == url_path %}Добавить{% else%}Изменить{% endif %} запись</li>
         </ol>
       </nav>
     </div>
+    {% if messages %} {% for message in messages %}
+      {% if message.tags == "error" %}
+          <div class="alert alert-danger" role="alert">{{message}}</div>
+      {% elif message.tags == "success" %}
+      <div class="alert alert-success" role="alert">{{message}}</div>
+      {% endif %}
+      {% endfor %}
+    {% endif %}
     <div class="col-12 grid-margin stretch-card">
         <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Добавить Новости</h4>
+            <h4 class="card-title">{% if request.path == url_path %}Добавить{% else%}Изменить{% endif %} Запись</h4>
             <form class="forms-sample" method="POST">
             {% csrf_token %}
             <div class="form-group">
-                <label for="{{ form.Title.id_for_label }}" class="font-weight-bold">Тема</label>
-                {{ form.Title }}
-                {{ form.Title.errors }}
+                <label for="{{ form.Name.id_for_label }}" class="font-weight-bold">Введите Название:</label>
+                {{ form.Name }}
+                {{ form.Name.errors }}
             </div>
-            <div class="form-group">
-                <label for="{{ form.Short_Description.id_for_label }}" class="font-weight-bold">Краткое описание</label>
-                {{ form.Short_Description }}
-                {{ form.Short_Description.errors }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.Description.id_for_label }}" class="font-weight-bold">Описание</label>
-                {{ form.Description }}
-                {{ form.Description.errors }}
-            </div>
-            
-            <div class="form-row">
-                <div class="col form-group">
-                    <label for="{{ form.Date_added.id_for_label }}" class="font-weight-bold">Выберите дату:</label>
-                    {{ form.Date_added }}
-                </div>
-                <div class="col form-group">
-                    <label for=" {{ form.Language.id_for_label }}" class="font-weight-bold">Выберите Язык:</label>
-                    {{ form.Language }}
-                </div>
-            </div>
-           
-            <div class="form-group">
-                <label for="{{ form.Gallery.id_for_label }}" class="font-weight-bold">Выберите галерею:</label>
-                {{ form.Gallery }}
-                {{ form.Gallery.errors }}
-            </div>
-            {% url 'news_all' as news_all %}
+            {% url 'newsgallery_all' as gallery_all %}
             <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
-            <a href="{{news_all}}"  class="btn btn-light">Отменить</button>
+            <a href="{{gallery_all}}"  class="btn btn-light">Отменить</a>
             </form>
         </div>
         </div>
@@ -68,7 +50,6 @@
 <!-- End plugin js for this page -->
 <!-- inject:js -->
 <script src="{% static 'admin-panel/js/off-canvas.js' %}"></script>
-<script src="{% static 'admin-panel/js/misc.js' %}"></script>
 <!-- endinject -->
 <!-- Custom js for this page -->
 <!-- End custom js for this page -->

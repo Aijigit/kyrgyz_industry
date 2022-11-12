@@ -44,9 +44,9 @@
                           {% for news in news_list %}
                           <tr>
                             <td>{{forloop.counter}}</td>
-                            <td>{{news.Title }}</td>
+                            <td class="td-title" >{{news.Title }}</td>
                             <td class="text-danger">{{news.Date_added}}</td>
-                            <td><label class="badge badge-danger">{{news.Language}}</label></td>
+                            <td><label class="badge badge-warning">{{news.Language}}</label></td>
                             <td class="edit-delete-icons">
                               <a href="{% url 'news_update' news.id %}"><i class="icon-pencil"></i></a> |
                               <a href="{% url 'news_delete' news.id %}" class="text-danger"><i class="icon-trash"></i></a>
@@ -95,6 +95,8 @@
           <!-- content-wrapper ends -->
 {% endblock content %}
           {% block custom_js%}
+
+           <script src="{% static 'admin-panel/js/custom.js' %}"></script>
             <!-- plugins:js -->
             <script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
             <!-- endinject -->

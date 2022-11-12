@@ -1,0 +1,82 @@
+{% extends 'admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+{% url 'contests_create' as url_path %}
+{% url 'contests_all' as contests_all %}
+
+<div class="content-wrapper">
+    <div class="page-header">
+      <h3 class="page-title">{% if request.path == url_path%}Добавление{% else %}Обновление{% endif %} Конкурса</h3>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{{contests_all}}">Конкурсы</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{% if request.path == url_path %}Добавление{% else %}Обновление {% endif %}</li>
+        </ol>
+      </nav>
+    </div>
+    {% if messages %} {% for message in messages %}
+      {% if message.tags == "error" %}
+          <div class="alert alert-danger" role="alert">{{message}}</div>
+      {% elif message.tags == "success" %}
+      <div class="alert alert-success" role="alert">{{message}}</div>
+      {% endif %}
+      {% endfor %}
+    {% endif %}
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">{% if request.path == url_path %}Добавить новую запись{% else %}Обновить{% endif %}</h4>
+            <form class="forms-sample" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="{{ form.Title.id_for_label }}" class="font-weight-bold">Описание</label>
+                {{ form.Title }}
+                {{ form.Title.errors }}
+            </div>
+            <div class="form-group">
+                {{ form.Document }}
+                {{ form.Document.errors }}
+            </div>
+            
+            <div class="form-row">
+                <div class="col form-group">
+                    <label for="{{ form.Date_added.id_for_label }}" class="font-weight-bold">Выберите дату:</label>
+                    {{ form.Date_added }}
+                </div>
+                <div class="col form-group">
+                    <label for=" {{ form.Language.id_for_label }}" class="font-weight-bold">Выберите Язык:</label>
+                    {{ form.Language }}
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label for="{{ form.Status.id_for_label }}" class="font-weight-bold">Выберите Статус:</label>
+                {{ form.Status }}
+                {{ form.Status.errors }}
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Сохранить</button>
+            <a href="{{contests_all}}"  class="btn btn-light">Отменить</a>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block custom_js%}
+
+
+
+<!-- plugins:js -->
+<script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script src="{% static 'admin-panel/js/off-canvas.js' %}"></script>
+<script src="{% static 'admin-panel/js/misc.js' %}"></script>
+<!-- endinject -->
+<!-- Custom js for this page -->
+<!-- End custom js for this page -->
+{% endblock custom_js %}

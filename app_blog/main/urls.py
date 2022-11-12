@@ -19,7 +19,19 @@ urlpatterns = [
     # News Gallery View
     path('admin-panel/gallery/news/', views.NewsGalleryListView.as_view(), name='newsgallery_all'),
     path('admin-panel/gallery/news/create/', views.NewsGalleryCreateView.as_view(), name='newsgallery_create'),
-    path('admin-panel/gallery/news/detail/<int:pk>/', views.NewsGalleryDeleteView.as_view(), name='newsgallery_detail'),
     path('admin-panel/gallery/news/update/<int:pk>/', views.NewsGalleryUpdateView.as_view(), name='newsgallery_update'),
     path('admin-panel/gallery/news/delete/<int:id>/', views.newsgallery_delete, name='newsgallery_delete'),
+    
+    # News Image View
+    path('admin-panel/image/news/', views.NewsImageListView.as_view(), name='newsimage_all'),
+    path('admin-panel/image/news/create/', views.NewsImageCreateView.as_view(), name='newsimage_create'),
+    path('admin-panel/image/news/update/<int:pk>/', views.NewsImageUpdateView.as_view(), name='newsimage_update'),
+    path('admin-panel/image/news/delete/<int:id>/', views.newsimage_delete, name='newsimage_delete'),
+    
+    
+    # Contests View
+    path('admin-panel/contests/', views.ContestListView.as_view(), name='contests_all'),
+    path('admin-panel/contests/create/', views.ContestCreateView.as_view(), name='contests_create'),
+    path('admin-panel/contests/update/<int:pk>/', views.ContestUpdateView.as_view(), name='contests_update'),
+    path('admin-panel/contests/delete/<int:id>/', views.contests_delete, name='contests_delete'),
 ]

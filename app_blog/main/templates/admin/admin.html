@@ -13,7 +13,7 @@
     </div>
   </div>
           <div class="content-wrapper">
-            <div class="row purchace-popup">
+            <div class="row purchace-popup" id="purchace-popup">
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
                   <span class="card-body d-lg-flex align-items-center">
@@ -49,7 +49,7 @@
                       <a href="#" class="btn px-0"><i class="icon-folder mr-2"></i>Добавить проект</a>
                     </div>
                     <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <a href="#" class="btn px-0"><i class="icon-folder mr-2"></i>Добавить Конкурсы</a>
+                      <a href="{% url "contests_create" %}" class="btn px-0"><i class="icon-folder mr-2"></i>Добавить Конкурсы</a>
                     </div>
                     <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
                       <a href="#" class="btn px-0"><i class="icon-user mr-2"></i>Добавить сотрудника</a>
@@ -69,6 +69,7 @@
                       <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> Все проекты</a>
                     </div>
                     <div class="table-responsive border rounded p-1">
+                      {% if last_project %}
                       <table class="table">
                         <thead>
                           <tr>
@@ -131,6 +132,9 @@
                           </tr>
                         </tbody>
                       </table>
+                    {% else %}
+                    <h2>Нет записей!</h2>
+                    {% endif %}
                     </div>
                     <div class="d-flex mt-4 flex-wrap">
                       <p class="text-muted">Showing 1 to 10 of 57 entries</p>
@@ -152,16 +156,21 @@
           </div>
           <!-- content-wrapper ends -->
 
-      
+          <script>
+            let clsBtn = document.getElementById("close-btn");
+            let row = document.getElementById('purchace-popup');
+            clsBtn.onclick = function(){
+              row.style.display = "none";
+            }
+          </script>
     {% endblock content %}
- 
+    
+   
     {% block custom_js %}
+    
     <!-- plugins:js -->
     <script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
     <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{% static 'admin-panel/vendors/moment/moment.min.js' %}"></script>
-    <script src="{% static 'admin-panel/vendors/daterangepicker/daterangepicker.js' %}"></script>
     
     <!-- End plugin js for this page -->
     <!-- inject:js -->
@@ -172,6 +181,8 @@
 
     <!-- Custom js for this page -->
     <script src="{% static 'admin-panel/js/dashboard.js' %}"></script>
-        <!-- Custom js for this page -->
+    <!-- Custom js for this page -->
+
+    <script src="{% static 'admin-panel/js/custom.js' %}"></script>
     <!-- End custom js for this page -->
     {% endblock custom_js %}

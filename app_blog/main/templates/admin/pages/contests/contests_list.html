@@ -1,0 +1,114 @@
+{% extends 'admin/admin_base.html' %}   
+{% load static %}
+  {% block content %}
+      <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">Конкурсы</h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="{% url 'contests_all' %}">Конкурсы</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Все Конкурсы</li>
+                </ol>
+              </nav>
+            </div>
+            <div class="row">
+              {% if messages %} {% for message in messages %}
+              {% if message.tags == "error" %}
+                  <div class="alert alert-danger" role="alert">{{message}}</div>
+              {% elif message.tags == "success" %}
+              <div class="alert alert-success" role="alert">{{message}}</div>
+              {% endif %}
+              {% endfor %}
+          {% endif %}
+              <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-sm-flex align-items-center mb-4">
+                      <h4 class="card-title mb-sm-0">Список всех конкурсов</h4>
+                      <a href="{% url 'contests_create' %}" class="btn btn-primary btn-rounded my-1 my-sm-0 ml-auto">
+                        Добавить
+                      </a>
+                    </div>
+                    <div class="table-responsive border rounded p-1">
+                      <table class="table table-hover">
+                        {% if contests_list %}
+                        <thead>
+                          <tr>
+                            <th class="font-weight-bold">#</th>
+                            <th class="font-weight-bold">Описание</th>
+                            <th class="font-weight-bold">Язык</th>
+                            <th class="font-weight-bold">Статус</th>
+
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for contests in contests_list %}
+                          <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td class="td-title">{{contests.Title }}</td>
+                            <td><label class="badge badge-warning">{{contests.Language}}</label></td>
+                            <td><div class="badge badge-{% if contests.Status == "Не Проведён" %}danger{% else %}success{% endif %} p-2">{{contests.Status}}</div></td>
+                            <td class="edit-delete-icons">
+                              <a href="{% url 'contests_update' contests.id %}"><i class="icon-pencil"></i></a> |
+                              <a href="{% url 'contests_delete' contests.id %}" class="text-danger"><i class="icon-trash"></i></a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                          
+                        </tbody>
+                        {% else %}
+                        <div class="row purchace-popup">
+                          <div class="col-12 stretch-card grid-margin">
+                            <div class="card card-secondary">
+                              <span class="card-body d-lg-flex align-items-center">
+                                <p class="mb-lg-0">Нет активных Конкурсов</p>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        {% endif %}
+                      </table>
+                    </div>
+
+                    {% if is_paginated %}
+                    <div class="d-flex mt-4 flex-wrap">
+                      <p class="text-muted">Страница: {{page_obj.number}}-{{page_obj.paginator.num_pages}}</p>
+                      <nav class="ml-auto">
+                      
+                        <ul class="pagination separated pagination-info">
+                          {% if page_obj.has_previous %}
+                              <li class="page-item"><a href="?page={{page_obj.previous_page_number}}" class="page-link"><i class="icon-arrow-left"></i></a></li>
+                          {% endif %}
+                          <li class="page-item"><a class="page-link">{{page_obj.number}} из {{page_obj.paginator.num_pages}}</a></li>
+
+                          {% if page_obj.has_next %}
+                          <li class="page-item"><a href="?page={{page_obj.next_page_number}}" class="page-link"><i class="icon-arrow-right"></i></a></li>
+                          {% endif %}
+                        </ul>
+                      </nav>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+      </div>
+          <!-- content-wrapper ends -->
+{% endblock content %}
+          {% block custom_js%}
+
+
+            <script src="{% static 'admin-panel/js/custom.js' %}"></script>
+
+            <!-- plugins:js -->
+            <script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
+            <!-- endinject -->
+            <!-- Plugin js for this page -->
+            <!-- End plugin js for this page -->
+            <!-- inject:js -->
+            <script src="{% static 'admin-panel/js/off-canvas.js' %}"></script>
+            <script src="{% static 'admin-panel/js/misc.js' %}"></script>
+            <!-- endinject -->
+            <!-- Custom js for this page -->
+            <!-- End custom js for this page -->
+          {% endblock custom_js %}

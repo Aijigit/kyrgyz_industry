@@ -50,8 +50,13 @@ class NewsGalleryForm(ModelForm):
         fields = ["Name"]
         widgets = {
             'Name' : TextInput(
-                attrs= {"type" : "text", "class" : "form-control", "id" : "name", "placeholder" : "Название  галереи", "required" : True })
+                attrs= {"type" : "text", "class" : "form-control", "id" : "name", "placeholder" : "Название  галереи" })
         } 
+    def check_for_empty(self):
+        name = self.cleaned_data.get("Name")
+        if name == "":
+            raise forms.ValidationError('Это поле обязательное!')
+        return name   
         
 # Форма для изображение новости
 class NewsImageForm(ModelForm):
@@ -60,7 +65,6 @@ class NewsImageForm(ModelForm):
         fields = ["URL", "Caption", "Gallery"]
         
         widgets = {
-            'URL' : forms.FileField(),
             'Caption' : TextInput(
                 attrs = {"type" : "text", "class" : "form-control", "id" : "image-caption", "placeholder" : "Описание изображении", "size" : 110, 'required': False}
             ),
@@ -69,8 +73,22 @@ class NewsImageForm(ModelForm):
             )
         }
         
-# Projects    
-class ProjectImageFrom(ModelForm):
+# Projects 
+class ProjectGalleryForm(ModelForm):
+    class Meta:
+        model = GalleryProject
+        fields = ["Name"]
+        widgets = {
+            'Name' : TextInput(
+                attrs= {"type" : "text", "class" : "form-control", "id" : "name", "placeholder" : "Название  галереи" })
+        } 
+    def check_for_empty(self):
+        name = self.cleaned_data.get("Name")
+        if name == "":
+            raise forms.ValidationError('Это поле обязательное!')
+        return name     
+    
+class ProjectImageForm(ModelForm):
     class Meta:
         model = PhotosProject
         fields = ["URL", "Caption", "Gallery"]
@@ -84,7 +102,6 @@ class ProjectImageFrom(ModelForm):
                 attrs={"class": "form-control", 'required': True, "id" : "gallery"}
             )
         }
-        
 # Project Form
 class ProjectForm(ModelForm):
     class Meta:
@@ -109,4 +126,27 @@ class ProjectForm(ModelForm):
             ),
             'Category' : forms.Select(), 
             'Status' : forms.Select()
+        }
+        
+
+class ContestForm(ModelForm):
+    class Meta:
+        model = Contests
+        fields = '__all__'
+        widgets = {
+            'Title' : TextInput(
+                    attrs = {"type" : "text", "class" : "form-control", "id" : "title", "placeholder" : "Описание конкурса","size" : 180, 'required': True}
+                ),
+            'Date_added' : DateTimeInput(
+                    attrs={'type': 'datetime-local', "class" : "form-control", "id" : "date_created", "required" : False}
+                    ),
+            'Language' : forms.Select(
+                    attrs={"class": "form-control", 'required': True,  "id" : "language"},
+                    choices=LanguageChoice.choices
+                ),
+            'Status' : forms.Select( 
+                    attrs={"class": "form-control", 'required': True,  "id" : "language"},
+                    choices=LanguageChoice.choices
+                    )
+            
         }

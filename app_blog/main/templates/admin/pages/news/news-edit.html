@@ -67,7 +67,7 @@
             </div>
             {% url 'news_all' as news_all %}
             <button type="submit" class="btn btn-primary mr-2">Обновить</button>
-            <button type="submit" class="btn btn-light" onlick="window.location='{{news_all}}'; return false;">Отменить</button>
+            <a href="{{news_all}}"  class="btn btn-light">Отменить</a>
             </form>
         </div>
         </div>

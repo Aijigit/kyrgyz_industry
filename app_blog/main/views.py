@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout 
 from django.shortcuts import get_object_or_404
@@ -135,8 +136,8 @@ class NewsView(View):
     success_url = reverse_lazy('news_all')
     extra_context = {
         "is_active" : "news-panel",
-        "active_all_news" : "active",
-        "expand" : "show",
+        "active_news" : "active",
+        "expand_news" : "show",
         }
 
 class NewsListView(LoginRequiredMixin, NewsView, ListView):
@@ -154,9 +155,7 @@ class NewsCreateView(LoginRequiredMixin, NewsView, CreateView):
         context = {
             "form" : form,
             "is_active" : "news-panel",
-            "expand" : "show",
-            "active_create_news" : "active"
-            
+            "expand_news" : "show",
         }
         return render(request, self.template_name, context=context)
     
@@ -207,12 +206,11 @@ class NewsDetailView(LoginRequiredMixin, SuccessMessageMixin, NewsView, DetailVi
 """
 class NewsGalleryView(View):
     model = GalleryNews
-    fields = '__all__'
     form_class = NewsGalleryForm
     extra_context = {
-        "is_active" : "gallery-panel",
-        "active_gallery_news" : "active",
-        "expand_gallery" : "show",
+        "is_active" : "news-panel",
+        "active_news_gallery" : "active",
+        "expand_news" : "show",
         }
 
 class NewsGalleryListView(LoginRequiredMixin, NewsGalleryView, ListView):
@@ -225,14 +223,11 @@ class NewsGalleryCreateView(LoginRequiredMixin, NewsGalleryView, CreateView):
     template_name = 'admin/pages/news-gallery/newsgallery_form.html'
     redirect_field_name = "newsgallery_create"
     def get(self, request, *args, **kwargs):
-        
         form = NewsGalleryForm()
         context = {
             "form" : form,
-            "is_active" : "gallery-panel",
-            "expand_gallery" : "show",
-            "active_create_gallerynews" : "active"
-            
+            "is_active" : "news-panel",
+            "expand_news" : "show",
         }
         return render(request, self.template_name, context=context)
     
@@ -241,14 +236,16 @@ class NewsGalleryCreateView(LoginRequiredMixin, NewsGalleryView, CreateView):
             form = NewsGalleryForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(request, "Запись Успешно добавлено!")
                 return redirect(self.redirect_field_name)
             else:
+                messages.error(request, "Введите корректные данные!!")
                 return redirect(self.redirect_field_name)
         else:
             messages.error(request, "Invalid Method")
             return redirect(self.redirect_field_name) 
 
-class NewsGalleryUpdateView(LoginRequiredMixin, NewsGalleryView, DeleteView):
+class NewsGalleryUpdateView(LoginRequiredMixin, SuccessMessageMixin, NewsGalleryView, UpdateView):
     template_name = 'admin/pages/news-gallery/newsgallery_form.html'
     success_url = reverse_lazy("newsgallery_all")
     success_message = "Запись успешно обновлено!"      
@@ -277,28 +274,105 @@ def newsgallery_delete(request, id):
 """
 class NewsImageView(View):
     model = PhotosNews
-    fields = '__all__'
     form_class = NewsImageForm
     success_url = reverse_lazy("newsimage_all")
+    login_url = "login_page"
     extra_context = {
-        "is_active" : "gallery-panel",
-        "active_gallery_news" : "active",
-        "expand" : "show",
+        "is_active" : "news-panel",
+        "active_news_image" : "active",
+        "expand_news" : "show",
         }
 class NewsImageListView(LoginRequiredMixin, NewsImageView, ListView):
-    template_name = 'admin/pages/news-image/newsgallery_list.html'
+    template_name = 'admin/pages/news-image/newsimage_list.html'
     paginate_by = 10
+    
 
 class NewsImageCreateView(LoginRequiredMixin, NewsImageView, CreateView):
-    template_name = 'admin/pages/news-gallery/newsgallery_form.html'
-    redirect_field_name = "newsgallery_create"
+    template_name = 'admin/pages/news-image/newsimage_form.html'
+    redirect_field_name = "newsimage_create"
     def get(self, request, *args, **kwargs):
-        
         form = NewsImageForm()
         context = {
             "form" : form,
+            "is_active" : "news-panel",
+            "expand_news" : "show",
+        }
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            form = NewsImageForm(request.POST, request.FILES)
+            try:
+                form.save()
+                messages.success(request, "Изображение Успешно добавлено!")
+                return redirect(self.redirect_field_name)
+            except ValueError:
+                messages.error(request, "Выберите картинку в формате (jpg, jpeg, png, и т.д.)")
+                return redirect(self.redirect_field_name)
+            except Exception as e:
+                messages.error(request, e)
+                return redirect(self.redirect_field_name)
+        else:
+            messages.error(request, "Invalid Method")
+            return redirect(self.redirect_field_name) 
+
+class NewsImageUpdateView(LoginRequiredMixin, NewsImageView, UpdateView):
+    template_name = 'admin/pages/news-image/newsimage_form.html'
+    success_message = "Запись успешно обновлено!"
+       
+    
+class NewsImageDeleteView(LoginRequiredMixin, NewsGalleryView, DeleteView):
+    template_name = 'admin/pages/news-gallery/newsgallery_confirm_delete.html'
+    success_message = "Запись успешно удалено!"
+    
+def newsimage_delete(request, id):
+    context = {}
+    obj = get_object_or_404(PhotosNews, id = id)
+    if request.method =="POST":
+        try:
+            if len(obj.URL) > 0:
+                os.remove(obj.URL.path)
+            obj.delete()
+            
+            messages.success(request, "Запись успешно удалено!")
+            return redirect("newsimage_all")
+        except Exception as e:
+            messages.error(request, e)
+            return redirect("newsimage_delete")
+    return render(request, "admin/pages/news-image/newsimage_confirm_delete.html", context)
+"""
+---- End News-Image Views
+"""    
+
+
+"""
+---- Project-Gallery Views
+"""  
+class ProjectGalleryView(View):
+    model = GalleryProject
+    form_class = ProjectGalleryForm
+    success_url = reverse_lazy("projectgallery_all")
+    extra_context = {
+        "is_active" : "projects-panel",
+        "active_project_gallery" : "active",
+        "expand_projects" : "show",
+        }
+    
+class ProjectGalleryListView(LoginRequiredMixin, ProjectGalleryView, ListView):
+    login_url = "login_page"
+    template_name = "admin/pages/project-gallery/gallery_list.html"
+
+class ProjectGalleryCreateView(LoginRequiredMixin, SuccessMessageMixin, ProjectGalleryView, CreateView):
+    login_url = "login_page"
+    template_name = "admin/pages/project-gallery/gallery_create.html"
+    redirect_field_name = "newsgallery_create"
+    def get(self, request, *args, **kwargs):
+        
+        form = ProjectGalleryForm()
+        context = {
+            "form" : form,
             "is_active" : "gallery-panel",
-            "expand" : "show",
+            "expand_gallery" : "show",
             "active_create_gallerynews" : "active"
             
         }
@@ -306,25 +380,122 @@ class NewsImageCreateView(LoginRequiredMixin, NewsImageView, CreateView):
     
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            form = NewsGalleryForm(request.POST)
+            form = ProjectGalleryForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(request, "Запись Успешно добавлено!")
                 return redirect(self.redirect_field_name)
             else:
+                messages.error(request, "Введите валидные данные!")
                 return redirect(self.redirect_field_name)
         else:
             messages.error(request, "Invalid Method")
             return redirect(self.redirect_field_name) 
+        
 
-class NewsImageUpdateView(LoginRequiredMixin, NewsImageView, DeleteView):
-    template_name = 'admin/pages/news-gallery/newsgallery_form.html'
+class ProjectGalleryUpdateView(LoginRequiredMixin, SuccessMessageMixin, ProjectGalleryView, UpdateView):
+    template_name = 'admin/pages/project-gallery/gallery_form.html'
     success_message = "Запись успешно обновлено!"      
     
-class NewsGalleryDeleteView(LoginRequiredMixin, NewsGalleryView, DeleteView):
-    template_name = 'admin/pages/news-gallery/newsgallery_confirm_delete.html'
-    success_url = reverse_lazy("newsgallery_all")
-    success_message = "Запись успешно удалено!"
+
+def projectgallery_delete(request, id):
+    context = {}
+    obj = get_object_or_404(GalleryProject, id = id)
+    if request.method =="POST":
+        try:
+        # delete object
+            obj.delete()
+        # after deleting redirect to
+        # home page
+            messages.success(request, "Запись успешно удалено!")
+            return redirect("newsgallery_all")
+        except RestrictedError:
+            messages.error(request, "Вы не сможете удалить эту галерею, так как это связано с одной или несколькими проектами или фотографиями")
+            return redirect("newsgallery_all")
+    return render(request, "admin/pages/news-gallery/newsgallery_confirm_delete.html", context)
+"""
+---- End Project-Gallery Views
+"""    
+
+
 
 """
----- End News-Image Views
-"""    
+---- Contest Views
+"""  
+class ContestView(View):
+    model = Contests
+    form_class = ContestForm
+    success_url = reverse_lazy("contests_all")
+    extra_context = {
+        "is_active" : "contests-panel",
+        "active_contests" : "active",
+        "expand_contests" : "show",
+        }
+    
+
+class ContestListView(LoginRequiredMixin, ContestView, ListView):
+    login_url = "login_page"
+    template_name = "admin/pages/contests/contests_list.html"
+    
+
+class ContestCreateView(LoginRequiredMixin, SuccessMessageMixin, ContestView, ListView):
+    login_url = "login_page"
+    template_name = "admin/pages/contests/contests_form.html"
+    redirect_field_name = "contests_create"
+    def get(self, request, *args, **kwargs):
+        
+        form = ContestForm()
+        context = {
+            "form" : form,
+            "is_active" : "contests-panel",
+            "expand_contests" : "show",
+        }
+        return render(request, self.template_name, context=context)
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            form = ContestForm(request.POST, request.FILES)
+            try:
+                form.save()
+                messages.success(request, "Успешно добавлено!")
+                return redirect(self.redirect_field_name)
+            except ValueError:
+                messages.error(request, "Выберите файлы в формате (.pdf, .docx, .doc)")
+                return redirect(self.redirect_field_name)
+            except Exception as e:
+                messages.error(request, e)
+                return redirect(self.redirect_field_name)
+        else:
+            messages.error(request, "Invalid Method")
+            return redirect(self.redirect_field_name) 
+        
+class ContestUpdateView(LoginRequiredMixin, SuccessMessageMixin, ContestView, UpdateView):
+    login_url = "login_page"
+    template_name = "admin/pages/contests/contests_form.html"
+
+def contests_delete(request, id):
+    context = {}
+    obj = get_object_or_404(Contests, id = id)
+    if request.method =="POST":
+        try:
+            if len(obj.Document) > 0:
+                os.remove(obj.Document.path)
+            obj.delete()
+            
+            messages.success(request, "Запись успешно удалено!")
+            return redirect("contests_all")
+        except Exception as e:
+            messages.error(request, e)
+            return redirect("contests_delete")
+    return render(request, "admin/pages/contests/contests_confirm_delete.html", context)
+
+
+
+def get_last_projects(request):
+    last_ten = Projects.objects.all().order_by('-id')[:10]
+    template_name = "admin/admin.html"
+    context = {
+        "last_projects" : last_ten
+    }
+    
+    return render(request, template_name, context)

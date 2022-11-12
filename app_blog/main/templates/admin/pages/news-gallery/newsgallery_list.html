@@ -6,8 +6,8 @@
               <h3 class="page-title">Таблица Галерея</h3>
               <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="{% url 'news_all' %}">Новости</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Галерея</li>
+                  <li class="breadcrumb-item"><a href="{% url 'newsgallery_all' %}">Галерея</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Все</li>
                 </ol>
               </nav>
             </div>
@@ -26,7 +26,7 @@
                     <div class="d-sm-flex align-items-center mb-4">
                       <h4 class="card-title mb-sm-0">Список всех Галереи</h4>
                       <a href="{% url 'newsgallery_create' %}" class="btn btn-primary btn-rounded my-1 my-sm-0 ml-auto">
-                        Добавить
+                        Создать Галерею
                       </a>
                     </div>
                     <div class="table-responsive border rounded p-1">
@@ -42,7 +42,7 @@
                           {% for newsgallery in gallerynews_list %}
                           <tr>
                             <td>{{forloop.counter}}</td>
-                            <td>{{newsgallery.Name }}</td>
+                            <td class="td-title" >{{newsgallery.Name }}</td>
                             <td class="edit-delete-icons">
                               <a href="{% url 'newsgallery_update' newsgallery.id %}"><i class="icon-pencil"></i></a> |
                               <a href="{% url 'newsgallery_delete' newsgallery.id %}" class="text-danger"><i class="icon-trash"></i></a>
@@ -56,7 +56,7 @@
                           <div class="col-12 stretch-card grid-margin">
                             <div class="card card-secondary">
                               <span class="card-body d-lg-flex align-items-center">
-                                <p class="mb-lg-0">Нет активных Галереи</p>
+                                <p class="mb-lg-0">Нет активных записей в Галереи</p>
                               </span>
                             </div>
                           </div>
@@ -91,6 +91,8 @@
           <!-- content-wrapper ends -->
 {% endblock content %}
           {% block custom_js%}
+
+            <script src="{% static 'admin-panel/js/custom.js' %}"></script>
             <!-- plugins:js -->
             <script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
             <!-- endinject -->
@@ -98,7 +100,6 @@
             <!-- End plugin js for this page -->
             <!-- inject:js -->
             <script src="{% static 'admin-panel/js/off-canvas.js' %}"></script>
-            <script src="{% static 'admin-panel/js/misc.js' %}"></script>
             <!-- endinject -->
             <!-- Custom js for this page -->
             <!-- End custom js for this page -->

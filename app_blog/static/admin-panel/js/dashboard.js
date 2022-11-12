@@ -23,5 +23,9 @@
     });
 
     $("#suggestion").ticker();
+
+    
+   
+    
   
 })(jQuery);
