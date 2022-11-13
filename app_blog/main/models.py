@@ -59,10 +59,28 @@ def get_file_path(instance, filename):
 
 
 # Фото 
+
+
+
 class PhotosProject(models.Model):
     URL=models.FileField(verbose_name="Путь к картинке", upload_to = get_file_path)
     Caption=models.CharField(max_length=70,verbose_name="Название картинки", default='')
     Gallery=models.ForeignKey("galleryProject",on_delete=models.RESTRICT,verbose_name="Галерея")
+<<<<<<< HEAD
+
+
+class PhotosContests(models.Model):
+    URL=models.FileField(verbose_name="Путь картинки")
+    Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
+    Gallery=models.ForeignKey("galleryContests",on_delete=models.RESTRICT,verbose_name="Галерея")
+
+
+class PhotosNews(models.Model):
+    URL=models.FileField(verbose_name="Путь картинки")
+    Title=models.CharField(max_length=70,verbose_name="Заголовок картинки")
+    Gallery=models.ForeignKey("galleryNews",on_delete=models.RESTRICT,verbose_name="Галерея")
+
+=======
     
     path_url = "static/client/img/projects/"
     class Meta:
@@ -85,6 +103,7 @@ class PhotosNews(models.Model):
         
     def __str__(self) -> str:
         return self.Caption 
+>>>>>>> 69018b9ef27a8f551a156c7e22d9e6dc2aaccc86
 class Contest_Status_Choice(models.TextChoices):
     ON_PROCCESS = "Актуально", "Актуально"
     HAS_FINISHED = "Проведён", "Проведён"

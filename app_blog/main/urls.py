@@ -11,6 +11,9 @@ urlpatterns = [
     path('admin-panel/main/', views.admin_index_page, name='admin_panel'),
     # News View
     path('admin-panel/news/all/', views.NewsListView.as_view(), name='news_all'),
+<<<<<<< HEAD
+    path("send_message/", views.send_message),
+=======
     path('admin-panel/news/create/', views.NewsCreateView.as_view(), name='news_create'),
     path('admin-panel/news/detail/<int:pk>/', views.NewsDetailView.as_view(), name='news_detail'),
     path('admin-panel/news/update/<int:pk>/', views.NewsUpdateView.as_view(), name='news_update'),
@@ -34,4 +37,6 @@ urlpatterns = [
     path('admin-panel/contests/create/', views.ContestCreateView.as_view(), name='contests_create'),
     path('admin-panel/contests/update/<int:pk>/', views.ContestUpdateView.as_view(), name='contests_update'),
     path('admin-panel/contests/delete/<int:id>/', views.contests_delete, name='contests_delete'),
+>>>>>>> 69018b9ef27a8f551a156c7e22d9e6dc2aaccc86
 ]
+

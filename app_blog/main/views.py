@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+from django.contrib import messages
+=======
 import os
+>>>>>>> 69018b9ef27a8f551a156c7e22d9e6dc2aaccc86
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login, logout 
 from django.shortcuts import get_object_or_404
@@ -15,6 +19,13 @@ from django.views import View
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from .models import *
+<<<<<<< HEAD
+from django.core.mail import BadHeaderError, send_mail
+from django.core import mail
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.conf import settings
+=======
 from .forms import *
 from django.contrib.auth.backends import UserModel
 
@@ -51,9 +62,42 @@ from django.contrib.auth.backends import UserModel
             Создать - Модель Сотрудники
             Создать - Модель Вакансии
 """
+>>>>>>> 69018b9ef27a8f551a156c7e22d9e6dc2aaccc86
 def index(request):
+   
+    
     template_name = "client/index.html"
     return render(request, template_name, {})
+
+def send_message(request):
+    
+    sucs=True
+    if request.method == 'POST':
+        settings.EMAIL_HOST_USER=request.POST.get('email', '')
+        settings.EMAIL_HOST_PASSWORD=''
+        Name = request.POST.get('name', '')
+        
+        message = request.POST.get('message', '')
+        from_email = request.POST.get('email', '')
+        subject = "Сообщение от пользователей" 
+        try:
+            
+            body = {
+			    'Name: ': "От кого: "+ Name, 
+                'from_email': "Эл.адрес: " + from_email,
+			    'message': "Сообщение: " + message,
+		    }
+	    
+            messageAll = "\n".join(body.values())
+            send_mail(subject, messageAll, from_email, ['To'])
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
+        except:
+            messages.add_message(request, messages.ERROR, 'Неправильный эл.адрес')
+            sucs=False
+    if(sucs==True):
+        messages.add_message(request, messages.SUCCESS, 'Ваше сообщение отправлено!')
+    return redirect ('/')
 
 
 def detail(request):
@@ -287,6 +331,11 @@ class NewsImageListView(LoginRequiredMixin, NewsImageView, ListView):
     paginate_by = 10
     
 
+<<<<<<< HEAD
+def ProjectsGetAll(request):
+    projects = Projects.objects.all()
+    return render(request, 'client/index.html', {'project':projects})
+=======
 class NewsImageCreateView(LoginRequiredMixin, NewsImageView, CreateView):
     template_name = 'admin/pages/news-image/newsimage_form.html'
     redirect_field_name = "newsimage_create"
@@ -499,3 +548,4 @@ def get_last_projects(request):
     }
     
     return render(request, template_name, context)
+>>>>>>> 69018b9ef27a8f551a156c7e22d9e6dc2aaccc86
