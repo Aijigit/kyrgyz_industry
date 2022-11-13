@@ -2,10 +2,9 @@
       <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
-              <li class="nav-item nav-profile">
-                <a href="#" class="nav-link">
+              <li class="nav-item nav-profile user-select-none">
+                <a class="nav-link">
                   <div class="profile-image">
-                    <img class="img-xs rounded-circle" src="{% static 'admin-panel/images/faces/face8.jpg' %}" alt="profile image">
                     <div class="dot-indicator bg-success"></div>
                   </div>
                   <div class="text-wrapper">
@@ -13,8 +12,7 @@
                     <p class="designation">Администратор</p>
                   </div>
                   <div class="icon-container">
-                    <i class="icon-bubbles"></i>
-                    <div class="dot-indicator bg-danger"></div>
+                    <i class="icon-support"></i>
                   </div>
                 </a>
               </li>
@@ -28,40 +26,52 @@
                 </a>
               </li>
               <li class="nav-item nav-category"><span class="nav-link">Управление контента</span></li>
+           
+           
+              
               <li class="nav-item" id="news-panel">
-                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="{% if expand %}true{% else %}false{% endif %}" aria-controls="ui-basic">
+                <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="{% if expand_news %}true{% else %}false{% endif %}" aria-controls="ui-basic">
                   <span class="menu-title">Новости</span>
-                  <i class="icon-layers menu-icon"></i>
+                  <i class="icon-book-open menu-icon"></i>
                 </a>
-                <div class="collapse{% if expand %}show{% endif %}" id="ui-basic">
+                <div class="collapse{% if expand_news %}show{% endif %}" id="ui-basic">
                   <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"> <a class="nav-link {% if expand %}active{% endif %}" href="{% url 'news_all' %}">Список новостей</a></li>
-                    <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Добавить новость</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_news_gallery %}active{% endif %}" href="{% url 'newsgallery_all' %}">Галерея</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_news_image %}active{% endif %}" href="{% url 'newsimage_all' %}">Фотографии</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_news %}active{% endif %}" href="{% url 'news_all' %}">Статьи</a></li>
                   </ul>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="pages/icons/simple-line-icons.html">
+              <li class="nav-item" id="projects-panel">
+                <a class="nav-link" data-toggle="collapse" href="#projects" aria-expanded="{% if expand_projects %}true{% else %}false{% endif %}" aria-controls="projects">
                   <span class="menu-title">Проекты</span>
-                  <i class="icon-globe menu-icon"></i>
+                  <i class="icon-layers menu-icon"></i>
                 </a>
+                <div class="collapse{% if expand_projects %}show{% endif %}" id="projects">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link {% if active_image_news %}active{% endif %}" href="{% url 'newsimage_all' %}">Галерея</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_create_gallerynews %}active{% endif %}" href="{% url 'newsgallery_create' %}">Фотографии</a></li>
+                    <li class="nav-item"> <a class="nav-link {% if active_create_gallerynews %}active{% endif %}" href="{% url 'newsgallery_create' %}">Проекты</a></li>
+                  </ul>
+                </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'forms_page' %}">
-                  <span class="menu-title">Form Elements</span>
-                  <i class="icon-book-open menu-icon"></i>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="pages/charts/chartist.html">
+              
+              <li class="nav-item" id="contests-panel">
+                <a class="nav-link" data-toggle="collapse" href="#contests" aria-expanded="{% if expand_contests %}true{% else %}false{% endif %}" aria-controls="contests">
                   <span class="menu-title">Конкурсы</span>
                   <i class="icon-chart menu-icon"></i>
                 </a>
+                <div class="collapse{% if expand_contests %}show{% endif %}" id="contests">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link {% if active_contests %}active{% endif %}" href="{% url 'contests_all' %}">Все Конкурсы</a></li>
+                  </ul>
+                </div>
               </li>
-              <li class="nav-item nav-category"><span class="nav-link">Sample Pages</span></li>
+              
+              <li class="nav-item nav-category"><span class="nav-link">Руководство</span></li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                  <span class="menu-title">General Pages</span>
+                  <span class="menu-title">Персоналы</span>
                   <i class="icon-doc menu-icon"></i>
                 </a>
                 <div class="collapse" id="auth">
@@ -76,7 +86,7 @@
               </li>
               <li class="nav-item pro-upgrade">
                 <span class="nav-link">
-                  <a class="btn btn-block px-0 btn-rounded btn-upgrade" href="https://www.bootstrapdash.com/product/stellar-admin-template/" target="_blank"> <i class="icon-badge mx-2"></i> Upgrade to Pro</a>
+                  <a class="btn btn-block px-0 btn-rounded btn-upgrade" href="{% url 'index' %} " target="_blank"> <i class="icon-badge mx-2"></i> Открыть Сайт</a>
                 </span>
               </li>
             </ul>

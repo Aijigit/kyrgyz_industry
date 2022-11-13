@@ -7,14 +7,26 @@
 <!-- End plugin css for this page -->
 {% endblock plugin_css %}
   {% block content %}
+  <div id="spinner-box" class="spinner-box text-center mt-3 mb-3 ml-auto pr-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Загрузка...</span>
+    </div>
+  </div>
           <div class="content-wrapper">
-            <div class="row purchace-popup">
+            <div class="row purchace-popup" id="purchace-popup">
               <div class="col-12 stretch-card grid-margin">
                 <div class="card card-secondary">
                   <span class="card-body d-lg-flex align-items-center">
-                    <p class="mb-lg-0">Храните Логин и Пароль в надёжном месте!</p>
-                    <a href="add/" class="btn btn-success purchase-button btn-sm my-1 my-sm-0 ml-auto">Добавить</a>
-                    <button class="close popup-dismiss ml-2">
+                    <p class="mb-lg-0">
+                      <span class="text-dark" style="margin-right: 5px; font-weight: 600;">Полезные советы:</span>
+                        <ul id="suggestion">
+                          <li class="item"> Добавьте сначала фотографии потом добавьте новость</li>
+                          <li class="item"> Сначало познакомтесь с инструкциями пользователя</li>
+                          <li class="item"> Была была была</li>
+                        </ul>  
+                    </p>
+                    <a href="add/" class="btn btn-success purchase-button btn-sm my-1 my-sm-0 ml-auto">Читать инструкцию</a>
+                    <button id="close-btn" class="close popup-dismiss ml-2">
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </span>
@@ -27,93 +39,37 @@
                 <div class="card">
                   <div class="card-header d-block d-md-flex">
                     <h5 class="mb-0">Быстрые действии</h5>
-                    <p class="ml-auto mb-0">How are your active users trending overtime?<i class="icon-bulb"></i></p>
+                    <p class="ml-auto mb-0"><i class="icon-bulb"></i></p>
                   </div>
                   <div class="d-md-flex row m-0 quick-action-btns" role="group" aria-label="Quick action buttons">
                     <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"> <i class="icon-user mr-2"></i>Добавить новости</button>
+                      <a href="{% url "news_create" %}" class="btn px-0"> <i class="icon-book-open mr-2"></i>Добавить новости</a>
                     </div>
                     <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"><i class="icon-docs mr-2"></i>Добавить проект</button>
+                      <a href="#" class="btn px-0"><i class="icon-folder mr-2"></i>Добавить проект</a>
                     </div>
                     <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"><i class="icon-folder mr-2"></i>Добавить Конкурсы</button>
+                      <a href="{% url "contests_create" %}" class="btn px-0"><i class="icon-folder mr-2"></i>Добавить Конкурсы</a>
                     </div>
                     <div class="col-sm-6 col-md-3 p-3 text-center btn-wrapper">
-                      <button type="button" class="btn px-0"><i class="icon-book-open mr-2"></i>Create Invoice</button>
+                      <a href="#" class="btn px-0"><i class="icon-user mr-2"></i>Добавить сотрудника</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <!-- Quick Action Toolbar Ends-->
-            <div class="row">
-              <div class="col-md-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="d-sm-flex align-items-baseline report-summary-header">
-                          <h5 class="font-weight-semibold">Report Summary</h5> <span class="ml-auto">Updated Report</span> <button class="btn btn-icons border-0 p-2"><i class="icon-refresh"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row report-inner-cards-wrapper">
-                      <div class=" col-md -6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">EXPENSE</span>
-                          <h4>$32123</h4>
-                          <span class="report-count"> 2 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-success">
-                          <i class="icon-rocket"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">PURCHASE</span>
-                          <h4>95,458</h4>
-                          <span class="report-count"> 3 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-danger">
-                          <i class="icon-briefcase"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">QUANTITY</span>
-                          <h4>2650</h4>
-                          <span class="report-count"> 5 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-warning">
-                          <i class="icon-globe-alt"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-6 col-xl report-inner-card">
-                        <div class="inner-card-text">
-                          <span class="report-title">RETURN</span>
-                          <h4>25,542</h4>
-                          <span class="report-count"> 9 Reports</span>
-                        </div>
-                        <div class="inner-card-icon bg-primary">
-                          <i class="icon-diamond"></i>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-           
+
             <div class="row">
               <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
                     <div class="d-sm-flex align-items-center mb-4">
-                      <h4 class="card-title mb-sm-0">Products Inventory</h4>
-                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> View all Products</a>
+                      <h4 class="card-title mb-sm-0">Последние проекты</h4>
+                      <a href="#" class="text-dark ml-auto mb-3 mb-sm-0"> Все проекты</a>
                     </div>
                     <div class="table-responsive border rounded p-1">
+                      {% if last_project %}
                       <table class="table">
                         <thead>
                           <tr>
@@ -176,6 +132,9 @@
                           </tr>
                         </tbody>
                       </table>
+                    {% else %}
+                    <h2>Нет записей!</h2>
+                    {% endif %}
                     </div>
                     <div class="d-flex mt-4 flex-wrap">
                       <p class="text-muted">Showing 1 to 10 of 57 entries</p>
@@ -197,23 +156,33 @@
           </div>
           <!-- content-wrapper ends -->
 
-      
+          <script>
+            let clsBtn = document.getElementById("close-btn");
+            let row = document.getElementById('purchace-popup');
+            clsBtn.onclick = function(){
+              row.style.display = "none";
+            }
+          </script>
     {% endblock content %}
- 
+    
+   
     {% block custom_js %}
+    
     <!-- plugins:js -->
     <script src="{% static 'admin-panel/vendors/js/vendor.bundle.base.js' %}"></script>
     <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <script src="{% static 'admin-panel/vendors/moment/moment.min.js' %}"></script>
-    <script src="{% static 'admin-panel/vendors/daterangepicker/daterangepicker.js' %}"></script>
     
     <!-- End plugin js for this page -->
     <!-- inject:js -->
     <script src="{% static 'admin-panel/js/off-canvas.js' %}"></script>
     <script src="{% static 'admin-panel/js/misc.js' %}"></script>
     <!-- endinject -->
+    <script src="{% static 'admin-panel/js/jquery.ticker.js' %}"></script>
+
     <!-- Custom js for this page -->
     <script src="{% static 'admin-panel/js/dashboard.js' %}"></script>
+    <!-- Custom js for this page -->
+
+    <script src="{% static 'admin-panel/js/custom.js' %}"></script>
     <!-- End custom js for this page -->
     {% endblock custom_js %}

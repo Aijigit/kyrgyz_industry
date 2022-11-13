@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   {% include 'client/blocks/links.html' %}
+  {% block custom_css %}{% endblock custom_css%}
 </head>
 <body>
 
@@ -38,7 +39,11 @@
  </script>
  <noscript><div><img src="https://mc.yandex.ru/watch/90695866" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
  <!-- /Yandex.Metrika counter -->
-
+  <div id="spinner-box" class="d-flex align-items-center spinner-box mt-3">
+    <strong>Loading...</strong>
+    <div class="spinner-border text-primary" role="status" aria-hidden="true">
+    </div>
+  </div>
     <!-- ======= Header ======= -->
     {% include 'client/blocks/header.html' %}
     <!-- End Header -->

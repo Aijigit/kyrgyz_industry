@@ -1,0 +1,22 @@
+{% extends 'admin/admin_base.html' %}   
+{% load static %}
+{% block content %}
+
+<div class="content-wrapper">
+    <h1 class="my-4">Удаление - Галереи
+ 
+    </h1>
+    <div class="row">
+        <div class="col-12">
+            <form method="post">
+                {% csrf_token %}
+                <div class="alert alert-warning" role="alert">
+                  Вы точно хотите удалить эту запись?
+                </div>
+                <input type="submit" class="btn btn-danger" value="Да" />
+                <a class="btn btn-success" href="{% url 'newsgallery_all' %}">Нет</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
